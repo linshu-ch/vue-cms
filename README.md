@@ -11,6 +11,12 @@
     2. git commit -m "提交信息"
     3. 使用git push  // 上传
 
+## 如果本项目有幸被您下载， 切记将ajax请求根域名修改成本地电脑对应ip 在 main.js 中修改 ，并前值 vue-cms-node 仓库中 下载对应的后台代码
+
+```js
+Vue.http.options.root = 'ip'
+```
+
 ## 制作首页App组件
 
 1. 完成了Header区域，使用是Mint-Ui 中的Header组件
@@ -224,3 +230,13 @@
 ## 添加返回按钮 实现功能
 
 ## 添加视频功能
+
+## 效果呈现
+
+![1](./showImg/1.png)
+![2](./showImg/2.png)
+![3](./showImg/3.png)
+![4](./showImg/4.png)
+![5](./showImg/5.png)
+![6](./showImg/6.png)
+![7](./showImg/7.png)
