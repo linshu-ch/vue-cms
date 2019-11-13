@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!--        header -->
-    <mt-header fixed title="vue个人项目">
+    <mt-header fixed :title="$route.path|formatRoute">
       <!--            返回-->
       <span v-show="isShowBack" slot="left" @click="back">
                 <mt-button icon="back">返回</mt-button>
@@ -13,20 +13,20 @@
         <router-view></router-view>
       </transition>
     </div>
-<!--     网页版才需要的-->
-<!--    <div class="download" v-if="isShowDownload">-->
-<!--      <mt-button @click="handleDownload">下载安卓app</mt-button>-->
-<!--      <button class="mui-icon mui-icon-closeempty" @click="isShowDownload = false"></button>-->
-<!--    </div>-->
-<!--            底部tabber区域-->
+    <!--     网页版才需要的-->
+    <!--    <div class="download" v-if="isShowDownload">-->
+    <!--      <mt-button @click="handleDownload">下载安卓app</mt-button>-->
+    <!--      <button class="mui-icon mui-icon-closeempty" @click="isShowDownload = false"></button>-->
+    <!--    </div>-->
+    <!--            底部tabber区域-->
     <nav class="mui-bar mui-bar-tab">
       <router-link class="mui-tab-itemBug" to="/home">
         <span class="mui-icon mui-icon-home"></span>
         <span class="mui-tab-label">首页</span>
       </router-link>
-      <router-link class="mui-tab-itemBug" to="/member">
+      <router-link class="mui-tab-itemBug" to="/user">
         <span class="mui-icon mui-icon-contact"></span>
-        <span class="mui-tab-label">会员</span>
+        <span class="mui-tab-label">用户中心</span>
       </router-link>
       <router-link class="mui-tab-itemBug" to="/shopcar">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">{{$store.getters.getAllCount}}</span></span>
@@ -40,6 +40,9 @@
   </div>
 </template>
 <script>
+
+  // 定义过滤器 判断路由的类型 显示头部
+
   export default {
     data() {
       return {
@@ -48,13 +51,14 @@
       }
     },
     created() {
+      // 初始化默认值
       this.isShowBack = this.$route.path === '/home' ? false : true
     },
     methods: {
       back() {
         this.$router.go(-1)
       },
-      handleDownload () {
+      handleDownload() {
         window.location.href = 'http://gdlinshu.club/download/vue/and.apk'
       }
     },
@@ -67,24 +71,84 @@
         }
 
       }
+    },
+    filters: {
+      formatRoute(route) {
+        //  获取当前的 路由
+        var title = ''
+        switch (route) {
+          case '/':
+            title = 'vue项目-首页';
+            break;
+          case '/home':
+            title = 'vue项目-首页';
+            break;
+          case '/user':
+            title = 'vue项目-用户中心';
+            break;
+          case '/shopcar':
+            title = 'vue项目-购物车';
+            break;
+          case '/search':
+            title = 'vue项目-搜索商品';
+            break;
+          case '/home/newList':
+            title = 'vue项目-新闻列表';
+            break;
+          case '/home/photoList':
+            title = 'vue项目-图片列表';
+            break;
+          case '/home/goodslist':
+            title = 'vue项目-商品列表';
+            break;
+          case '/user/login':
+            title = 'vue项目-登陆';
+            break;
+          case '/home/videolist':
+            title = 'vue项目-视频列表';
+            break;
+
+        }
+
+        if (route.indexOf('/home/newsinfo/') === 0) {
+          title = 'vue项目-新闻详情'
+        }
+        if (route.indexOf('/home/photoInfo/') === 0) {
+          title = 'vue项目-图片详情'
+        }
+        if (route.indexOf('/home/goodsinfo') === 0) {
+          title = 'vue项目-商品详情'
+        }
+        if (route.indexOf('/home/goodsdesc/') === 0) {
+          title = 'vue项目-商品图文'
+        }
+        if (route.indexOf('/home/goodscomment/') === 0) {
+          title = 'vue项目-商品评论'
+        }
+        if (route.indexOf('/home/videoInfo/') === 0) {
+          title = 'vue项目-视频详情'
+        }
+
+        return title
+      }
     }
   }
 </script>
 <style lang="scss">
-/*网页版才需要的*/
-/*  .download {*/
-/*    width: 100%;*/
-/*    position: fixed;*/
-/*    background-color: #fafafa;*/
-/*    bottom: 40px;*/
-/*    display: flex;*/
-/*    justify-content: flex-end;*/
-/*    padding: 10px;*/
-/*    .mui-icon {*/
-/*      padding: 0;*/
-/*      border: none;*/
-/*    }*/
-/*  }*/
+  /*网页版才需要的*/
+  /*  .download {*/
+  /*    width: 100%;*/
+  /*    position: fixed;*/
+  /*    background-color: #fafafa;*/
+  /*    bottom: 40px;*/
+  /*    display: flex;*/
+  /*    justify-content: flex-end;*/
+  /*    padding: 10px;*/
+  /*    .mui-icon {*/
+  /*      padding: 0;*/
+  /*      border: none;*/
+  /*    }*/
+  /*  }*/
   * {
     box-sizing: border-box;
     touch-action: pan-y;
@@ -103,6 +167,7 @@
     overflow-x: hidden;
 
   }
+
   /*.mint-header {*/
   /*  width: 100%;*/
   /*  position: absolute;*/
@@ -112,7 +177,7 @@
   .v-enter {
     /*这是进入动画之前的的状态*/
     opacity: 0;
-transform: translateX(100%);
+    transform: translateX(100%);
   }
 
   .v-leave-to {
@@ -128,6 +193,7 @@ transform: translateX(100%);
   .v-leave-active {
     transition: all .5s ease-out;
   }
+
   .mint-header.is-fixed {
     z-index: 9;
   }

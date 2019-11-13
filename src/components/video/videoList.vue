@@ -27,9 +27,9 @@
     },
     methods: {
       getVideoList() {
-        this.$http.get('api/videoList').then(res => {
-          if (res.body.status === 0) {
-            this.videoList = res.body.message
+        this.axios.get('api/videoList').then(res => {
+          if (res.data.status === 0) {
+            this.videoList = res.data.message
           }
         })
       }

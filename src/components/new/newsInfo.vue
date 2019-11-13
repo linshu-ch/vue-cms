@@ -30,9 +30,9 @@
     },
     methods: {
       getNewsInfoById() {
-        this.$http.get('api/getnew/' + this.id).then(data => {
-         if (data.body.status === 0){
-           this.newsinfo = data.body.message
+        this.axios.get('api/getnew/' + this.id).then(data => {
+         if (data.data.status === 0){
+           this.newsinfo = data.data.message
          }else {
            Toast('读取信息失败')
          }

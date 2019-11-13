@@ -5,14 +5,16 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-//导入 vue-resource //发起请求
-import VueResource from 'vue-resource'
-//安装 vue-resource
-Vue.use(VueResource)
 
-// 设置请求地址和请求格式
-Vue.http.options.root = 'http://192.168.1.107/'
-Vue.http.options.emulateJSON = true
+// 使用 axios 发送异步请求
+import axios from 'axios'
+
+axios.defaults.withCredentials = true // 配置 axios 发起 异步的 ajax 请求 可以携带cookie
+axios.defaults.baseURL = 'http://192.168.1.107/' // 配置发起 ajax 的跟 域名 ip
+Vue.prototype.axios = axios
+
+// 配置请求服务端的默认地址
+Vue.prototype.URL = 'http://192.168.1.107'
 
 
 // 全局是使用mint-ui 因为在使用懒加载 组件是  没有样式 需要 全局使用

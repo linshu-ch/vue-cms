@@ -45,18 +45,18 @@
     methods: {
       getPhotoInfo() {
         //  获取图片的详情
-        this.$http.get('api/getimageInfo/' + this.id).then(res => {
-          if (res.body.status === 0) {
-            this.photoInfo = res.body.message
+        this.axios.get('api/getimageInfo/' + this.id).then(res => {
+          if (res.data.status === 0) {
+            this.photoInfo = res.data.message
           } else {
             Toast('获取失败')
           }
         })
       },
       getImagesById() {
-        this.$http.get('api/getthumimages/' + this.id).then(res => {
-          this.getImagesSize(res.body.message)
-          this.slide1 = res.body.message
+        this.axios.get('api/getthumimages/' + this.id).then(res => {
+          this.getImagesSize(res.data.message)
+          this.slide1 = res.data.message
         })
       },
       getImagesSize(imagesArr) {

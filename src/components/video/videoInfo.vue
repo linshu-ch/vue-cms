@@ -44,17 +44,17 @@
     methods: {
       //获取数据
       getVideoInfo() {
-        this.$http.get('api/videoInfo/' + this.id).then(res => {
-          if (res.body.status === 0) {
-            this.videoInfo = res.body.message
+        this.axios.get('api/videoInfo/' + this.id).then(res => {
+          if (res.data.status === 0) {
+            this.videoInfo = res.data.message
           }
         })
       },
 
       // 点击赞事件
       handleClickZan() {
-        this.$http.post('api/video/addzan', {id: this.id}).then(res => {
-          if (res.body.status === 0) {
+        this.axios.post('api/video/addzan', {id: this.id}).then(res => {
+          if (res.data.status === 0) {
               this.videoInfo.zan_count ++
           }else {
             Toast('服务器正在开小差，请稍后重试')

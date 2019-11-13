@@ -19,9 +19,9 @@
     },
     methods: {
      getGoodInfo () {
-       this.$http.get('api/goods/getdesc/' + this.id).then( res => {
-         if (res.body.status === 0){
-           this.info = res.body.message
+       this.axios.get('api/goods/getdesc/' + this.id).then( res => {
+         if (res.data.status === 0){
+           this.info = res.data.message
          }
        })
      }

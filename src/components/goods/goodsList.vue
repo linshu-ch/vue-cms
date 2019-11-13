@@ -60,12 +60,12 @@
         getGoodsList () {
           // 发起ajax 请求 goodsList 获取列表
             this.isActive = true
-          this.$http.get('api/getgoods?pageindex=' + this.pageIndex).then(res => {
+          this.axios.get('api/getgoods?pageindex=' + this.pageIndex).then(res => {
               this.isActive = false
               this.isShowBtn = true
-            if (res.body.status === 0){
-              this.goodsList = this.goodsList.concat(res.body.message)
-            }else if(res.body.status === 2){
+            if (res.data.status === 0){
+              this.goodsList = this.goodsList.concat(res.data.message)
+            }else if(res.data.status === 2){
               this.flag = true
               Toast('没有更多商品')
             }else {

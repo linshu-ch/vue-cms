@@ -63,10 +63,10 @@
     methods: {
       getLunbotu() {//获取轮播图的方法
         this.isActive = true
-        this.$http.get('api/getlunbo').then(result => {
+        this.axios.get('api/getlunbo').then(result => {
           this.isActive = false
-          if (result.body.status === 0) {
-            this.lunbotuList = result.body.message
+          if (result.data.status === 0) {
+            this.lunbotuList = result.data.message
           } else {
             Toast('加载轮播图失败')
           }

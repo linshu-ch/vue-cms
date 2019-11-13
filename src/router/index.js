@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 //实现路由懒加载
-const homeContainer = () => import('@/views/homeContainer.vue')
-const memberContainer = () => import('@/views/memberContainer.vue')
+import homeContainer from '@/views/homeContainer.vue'
+const userContainer = () => import('@/views/userContainer.vue')
 const searchContainer = () => import('@/views/searchContainer.vue')
 const shopcarContainer = () => import('@/views/shopcarContainer.vue')
 const newListContainer = () => import('@/components/new/newList.vue')
@@ -17,6 +17,10 @@ const goodsComment = () => import('@/components/goods/goodsComment.vue')
 const videoList = () => import('@/components/video/videoList.vue')
 const videoInfo = () => import('@/components/video/videoInfo.vue')
 
+// 用户登录相关组件
+const Login = ()=> import('@/components/user/login.vue')
+
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -28,8 +32,8 @@ const routes = [{
     component: homeContainer
   },
   {
-    path: '/member',
-    component: memberContainer
+    path: '/user',
+    component: userContainer
   },
   {
     path: '/search',
@@ -84,11 +88,17 @@ const routes = [{
     component: videoInfo,
     name: 'videoInfo',
     props: true
+  },
+  {
+    path: '/user/login',
+    component: Login,
+    name: 'login'
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  linkActiveClass: 'mui-active'
 })
 
 export default router

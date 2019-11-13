@@ -84,12 +84,12 @@
     },
     methods: {
       getImagesList() { // 获取轮播图上的
-        this.$http.get('api/getthumimages1/' + this.id).then(res => {
-          if (res.body.status === 0) {
-            res.body.message.forEach(item => {
+        this.axios.get('api/getthumimages1/' + this.id).then(res => {
+          if (res.data.status === 0) {
+            res.data.message.forEach(item => {
               item.img = item.src
             })
-            this.imagesList = res.body.message
+            this.imagesList = res.data.message
           } else {
             Toast('获取图片失败')
           }
@@ -97,9 +97,9 @@
       },
       //  获取商品详情参数
       getGoodsInfo() {
-        this.$http.get('api/goods/getinfo/' + this.id).then(res => {
-          if (res.body.status === 0){
-            this.goodsInfo = res.body.message
+        this.axios.get('api/goods/getinfo/' + this.id).then(res => {
+          if (res.data.status === 0){
+            this.goodsInfo = res.data.message
           }
         })
       },

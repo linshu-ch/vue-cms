@@ -14,7 +14,7 @@
 ## 如果本项目有幸被您下载， 切记将ajax请求根域名修改成本地电脑对应ip 在 main.js 中修改 ，并前值 vue-cms-node 仓库中 下载对应的后台代码
 
 ```js
-Vue.http.options.root = 'ip'
+axios.defaults.baseURL = 'http://192.168.1.107/'
 ```
 
 ## 制作首页App组件
@@ -24,7 +24,7 @@ Vue.http.options.root = 'ip'
     1. 在制作底部的时候，因为有一个字体图标是在扩展图标中，因此需要导入对应的css样式，和字体图标
 3. 要在中间区域 放置一个router-view 在展示路由匹配到的组件
   
-## 改造 tabbar 为router-link
+## 改造 tabbar 为 router-link
 
 ## 设置高亮
 
@@ -32,8 +32,8 @@ Vue.http.options.root = 'ip'
 
 ## 制作首页轮播图 布局
 
-1. 获取数据 使用 vue-resource
-2. 使用vue-resource 获取数据  this.$http.get()
+1. 获取数据 使用 axios
+2. 使用axios 获取数据  
 3. 获取到的数据保存到data上
 4. 使用v-for循环渲染页面 每个item 项
 
@@ -44,7 +44,7 @@ Vue.http.options.root = 'ip'
 ## 新闻资讯页面制作
 
 1. 绘制界面 使用MUI中的 media-list.html
-2. 使用vue-resource 获取数据
+2. 使用 axios 获取数据
 3. 渲染真实数据
     1. 使用moment插件格式化时间
 
@@ -124,9 +124,9 @@ Vue.http.options.root = 'ip'
     + 解决方案: 1. 禁用 min.js 中的非严格 模式的改掉，但是不现实 2. 把 vue-cli 打包时候的严格模式禁用;
     + vue-cli 中禁用严格模式的 方式 (修改mui的代码不能实现)
 
-        ```json
+        ```js
           module.exports = {
-          presets: [
+          "presets": [
             '@vue/cli-plugin-babel/preset'
           ],
           "ignore":[  './src/assets/js/mui.js']
@@ -230,6 +230,13 @@ Vue.http.options.root = 'ip'
 ## 添加返回按钮 实现功能
 
 ## 添加视频功能
+
+## 添加用户功能
+
+## 添加购物车功能
+
+## 添加定位功能
+
 
 ## 效果呈现
 

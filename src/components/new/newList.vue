@@ -9,7 +9,7 @@
         <li class="mui-table-view-cell mui-media" v-for="item in newsList" :key="item.id">
           <router-link :to="'/home/newsinfo/' + item.id" class="">
             <img class="mui-media-object mui-pull-left"
-                 :src="item.img_url">
+                 :src="URL + item.img_url">
             <div class="mui-media-body">
               <h1>{{ item.title}}</h1>
               <p class="mui-ellipsis">
@@ -47,13 +47,13 @@
     methods: {
       getNewsList() {
         this.isActive = true
-        this.$http.get('api/getnewslist?pageindex=' + this.pageIndex).then(result => {
+        this.axios.get('api/getnewslist?pageindex=' + this.pageIndex).then(result => {
           this.isActive = false
-          if (result.body.status === 0) {
-          
-            this.newsList = this.newsList.concat(result.body.message)
+          if (result.data.status === 0) {
 
-          } else if (result.body.status === 2) {
+            this.newsList = this.newsList.concat(result.data.message)
+
+          } else if (result.data.status === 2) {
             Toast('没有更多数据')
             this.allLoaded = true
           } else {

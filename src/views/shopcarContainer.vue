@@ -64,10 +64,10 @@
         })
         // 如果idArr 是一个空的数组 则没有必要请求拿到数据   直接 跳出函数
         if (idArr.length <= 0) return
-        this.$http.get('api/goods/getshopcarlist/' + idArr.join(',')).then(res => {
+        this.axios.get('api/goods/getshopcarlist/' + idArr.join(',')).then(res => {
 
-          if (res.body.status === 0) {
-            this.goodsList = res.body.message
+          if (res.data.status === 0) {
+            this.goodsList = res.data.message
           }
         })
       },

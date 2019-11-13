@@ -60,12 +60,12 @@
       getAllCategory() {
         //  获取所有图片分类
           this.isActive = true
-        this.$http.get('api/getimgcategory').then(res => {
+        this.axios.get('api/getimgcategory').then(res => {
             this.isActive = false
-          if (res.body.status === 0) {
+          if (res.data.status === 0) {
             //手动拼接处 ‘全部’ 分类
-            res.body.message.unshift({title: '全部', id: 0})
-            this.cates = res.body.message
+            res.data.message.unshift({title: '全部', id: 0})
+            this.cates = res.data.message
           } else {
             Toast('获取数据失败')
           }
@@ -74,12 +74,11 @@
 
       getImagesById() {
           this.isActive = true
-        this.$http.get('api/getimages/' + this.cateId).then(res => {
+        this.axios.get('api/getimages/' + this.cateId).then(res => {
             this.isActive = false
 
-          if (res.body.status === 0) {
-
-            this.list = res.body.message
+          if (res.data.status === 0) {
+            this.list = res.data.message
           } else {
             Toast('获取数据失败')
           }

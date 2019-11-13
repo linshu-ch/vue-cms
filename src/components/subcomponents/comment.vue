@@ -47,17 +47,12 @@
     methods: {
       getComments() {//获取评论
           this.isLoading = true
-        this.$http.get('api/getcomments/' + this.artid + '?pageindex=' + this.pageIndex).then(data => {
+        this.axios.get('api/getcomments/' + this.artid + '?pageindex=' + this.pageIndex).then(data => {
             this.isLoading = false
-            if (data.body.status === 0) {
-            // this.commentList = data.body.message
-            //没当 获取新的评论 不要把老数据清空覆盖  而是应该将老数据拼接上新的数据，得到一个最新的数组
-            // data.body.message.forEach(item => {
-            //   this.commentList.push(item)
-            // })
+            if (data.data.status === 0) {
             //  使用数组凭借的方法
-            this.commentList = this.commentList.concat(data.body.message)
-          } else if (data.body.status === 2) {
+            this.commentList = this.commentList.concat(data.data.message)
+          } else if (data.data.status === 2) {
             Toast('没有更多数据')
             this.allLoaded = true
             Toast('没有更多数据')
@@ -70,17 +65,16 @@
         /*
         * 参数1 请求的url地址
         * 参数2 提交给服务器的对象
-        * 参数3 定义提交时候 表单数据的格式 { emulateJSON: true }
         * */
         if (this.msg) {
-          this.$http.post('api/getcomments/' + this.artid, {content: this.msg}, {emulateJSON: true}).then(res => {
+          this.axios.post('api/getcomments/' + this.artid, {content: this.msg}).then(res => {
 
-            if (res.body.status === 0) {
+            if (res.data.status === 0) {
               this.commentList.unshift({
                 content: this.msg,
                 user_name: '匿名',
                 add_time: new Date(),
-                id: res.body.id
+                id: res.data.id
               })
               this.msg = ''
               Toast('评论成功')
@@ -140,7 +134,6 @@
             background-color: #ccc;
 
           }
-
           .cmt-body {
             line-height: 35px;
             text-indent: 2em;
