@@ -32,7 +32,7 @@
 </template>
 <script>
   // 导入
-    import mui from '@/assets/js/mui.js'
+    import mui from '@/assets/js/mui.min.js'
   import {Toast} from 'mint-ui'
   export default {
     data() {

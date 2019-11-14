@@ -4,8 +4,11 @@
     <mt-header fixed :title="$route.path|formatRoute">
       <!--            返回-->
       <span v-show="isShowBack" slot="left" @click="back">
-                <mt-button icon="back">返回</mt-button>
-            </span>
+          <mt-button icon="back">返回</mt-button>
+      </span>
+      <router-link v-if="$route.path === '/user/address'" slot="right" to="/user/AddAddress" tag="span">
+          添加收货地址
+      </router-link>
     </mt-header>
     <!--        路由router-view区域-->
     <div class="main">
@@ -107,7 +110,12 @@
           case '/home/videolist':
             title = 'vue项目-视频列表';
             break;
-
+          case '/user/address':
+            title = 'vue项目-我的收货地址';
+            break;
+            case '/user/AddAddress':
+            title = 'vue项目-我的收货地址';
+            break;
         }
 
         if (route.indexOf('/home/newsinfo/') === 0) {
@@ -127,6 +135,9 @@
         }
         if (route.indexOf('/home/videoInfo/') === 0) {
           title = 'vue项目-视频详情'
+        }
+        if (route.indexOf('/user/updateAddress/') === 0) {
+          title = 'vue项目-我的收货地址'
         }
 
         return title

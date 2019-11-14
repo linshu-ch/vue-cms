@@ -10,7 +10,7 @@
 </template>
 
 <script>
-      import mui from '@/assets/js/mui.js'
+      import mui from '@/assets/js/mui.min.js'
   export default {
       data() {
         return {

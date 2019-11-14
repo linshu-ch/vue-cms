@@ -2,5 +2,5 @@ module.exports = {
   presets: [
     '@vue/cli-plugin-babel/preset'
   ],
-  "ignore":[  './src/assets/js/mui.js']
+  "ignore":[  './src/assets/js/mui.min.js']
 }

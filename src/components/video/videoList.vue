@@ -3,7 +3,7 @@
     <ul class="mui-table-view">
       <li class="mui-table-view-cell mui-media" v-for="(item,i) of videoList" :key="i">
         <router-link :to="'/home/videoInfo/'+ item.id">
-          <img class="mui-media-object mui-pull-left fengmian" :src="item.img_url">
+          <img class="mui-media-object mui-pull-left fengmian" :src="URL + item.img_url">
           <div class="mui-media-body">
             {{item.title}}
             <p class="mui-ellipsis">

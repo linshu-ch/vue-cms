@@ -1,13 +1,12 @@
 <template>
   <div class="app-login">
     <form>
-      用户名
+
       <input type="text" name="uname" v-model="uname" placeholder="请填入3~8位的用户名英文或数字的用户名"/>
       <br/>
-      密码
       <input type="password" name="upwd" v-model="upwd" placeholder="请输入密码"/>
       <br/>
-      <input type="button" value="登录" @click="btnLogin"/>
+      <mt-button type="primary" size="large" @click="btnLogin">登录</mt-button>
     </form>
   </div>
 </template>
@@ -65,6 +64,13 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.app-login form {
+  margin-top: 20px;
+  &:before{
+    content: '';
+    display: table;
+    height: 0;
+  }
+}
 </style>

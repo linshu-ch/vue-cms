@@ -2,9 +2,9 @@
     <mt-swipe :auto="4000">
         <!--            使用v-for  一定要使用key-->
         <!--            谁使用 谁传值 来设置-->
-        <mt-swipe-item v-for="item in lunbotuList" :key="item.src">
+        <mt-swipe-item v-for="(item,index) in lunbotuList" :key="index">
             <a href="javascript:void(0)">
-                <img :src="item.src" alt="" :class="{full: isfull}">
+                <img :src="URL + item.src" alt="" :class="{full: isfull}">
             </a>
         </mt-swipe-item>
     </mt-swipe>
@@ -39,37 +39,9 @@
 </script>
 
 <style scoped lang="less">
-    @media screen and (max-width: 768px) and (min-width: 320px) {
-        .mint-swipe {
-            height: 205px;
-        }
-    }
-
-    @media screen and (max-width: 992px) and (min-width: 768px) {
-        .mint-swipe {
-            height: 450px;
-        }
-    }
-
-    @media screen and (max-width: 1200px) and (min-width: 992px) {
-        .mint-swipe {
-            height: 600px;
-        }
-    }
-
-    @media screen and (min-width: 1200px) {
-        .mint-swipe {
-            height: 600px;
-        }
-    }
-
     .mint-swipe {
+        height: 48vw;
         .mint-swipe-item {
-            /*交集选择器*/
-            /*&:nth-child(1) {*/
-            /*    background-color: red;*/
-            /*}*/
-
             a {
                 display: block;
                 width: 100%;
@@ -78,7 +50,6 @@
                 /*text-align: center;*/
 
                 img {
-                    /*width: 100%;*/
                     height: 100%;
                 }
             }

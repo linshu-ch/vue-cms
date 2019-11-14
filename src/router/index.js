@@ -19,6 +19,9 @@ const videoInfo = () => import('@/components/video/videoInfo.vue')
 
 // 用户登录相关组件
 const Login = ()=> import('@/components/user/login.vue')
+const Address = ()=> import('@/components/user/address.vue')
+const AddAddress = ()=> import('@/components/user/addAddress.vue')
+const UpdateAddress = ()=> import('@/components/user/updateAddress.vue')
 
 
 Vue.use(VueRouter)
@@ -93,7 +96,23 @@ const routes = [{
     path: '/user/login',
     component: Login,
     name: 'login'
-  }
+  },
+  {
+    path: '/user/address',
+    component: Address,
+    name: 'address'
+  },
+  {
+    path: '/user/addAddress',
+    component: AddAddress,
+    name: 'addAddress'
+  },
+  {
+    path: '/user/updateAddress/:id',
+    component: UpdateAddress,
+    name: 'updateAddress',
+    props: true
+  },
 ]
 
 const router = new VueRouter({

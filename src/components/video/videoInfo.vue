@@ -3,7 +3,7 @@
     <div class="mui-card">
       <div class="mui-card-header mui-card-media">
         <div class="mui-media-body">
-          <img :src="videoInfo.img_url || ''" alt="">
+          <img :src="URL + videoInfo.img_url || ''" alt="">
           <div class="info">
             <h3 class="title">{{videoInfo.title || ''}}</h3>
             <p class="zhaiyao">{{videoInfo.zhaiyao || ''}}</p>
@@ -12,7 +12,7 @@
       </div>
       <div class="mui-card-content">
         <video
-          :src="videoInfo.video_url || ''"
+          :src="URL + videoInfo.video_url || ''"
           controls
           loop
           preload="auto"

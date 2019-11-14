@@ -163,7 +163,6 @@
       // 定义向子组件传递方法  通过这个方法  在input文本框改变的使用 给父组件传值
       getSelectedCount(count) {
         this.selectedCount = count
-        // console.log(this.selectedCount)
       }
     },
     components: {
