@@ -1,72 +1,75 @@
 <template>
-    <div class="goodsinfo-container">
-<!--       动画小球区域-->
-     <transition
-     @before-enter="beforeEnter"
-     @enter="enter"
-     @after-enter="afterEnter"
-     >
-         <div  v-show="ballFlag" class="ball" ref="ball"></div>
-     </transition>
+  <div class="goodsinfo-container">
+    <!--       动画小球区域-->
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+    >
+      <div v-show="ballFlag" class="ball" ref="ball"></div>
+    </transition>
 
-        <!--        商品轮播图区域-->
-        <div class="mui-card">
-            <div class="mui-card-content-inner">
-                <swiper :lunbotuList="imagesList" :isfull="false"></swiper>
-            </div>
-        </div>
-
-        <!--        商品购买区域-->
-        <div class="mui-card">
-            <div class="mui-card-header">{{goodsInfo.title}}</div>
-            <div class="mui-card-content">
-                <div class="mui-card-content-inner">
-                    <p class="price">
-                        市场价：
-                        <del>￥{{goodsInfo.market_price}}</del> &nbsp;&nbsp; 销售价 <span class="now_price">￥{{goodsInfo.sell_price}}</span>
-                    </p>
-                    <p>购买数量：<numbox @getcount="getSelectedCount" :stock_quantity="goodsInfo.stock_quantity"></numbox>
-                    </p>
-                    <p>
-                        <mt-button type="primary" size="small">立即购买</mt-button>
-                        <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
-                    </p>
-
-<!--                    分析  在加入购物车的时候如何拿到数量-->
-<!--                    经过分析发现 按钮属于goodsinfo页面 数字属于numberbox 组件
-                            由于涉及到父子组件的嵌套问题 无法直接 在goiodsinfo 页面中获取到选中商品 的数量值
-                            怎么解决  涉及到子组件想父组件传值  （事件调用机制）
-                            事件调用的本质
-                             父向子传达方法  子调用这个方法  同时吧数据当成参数传递给这个方法
--->
-                </div>
-            </div>
-        </div>
-
-        <!--        产品参数区域-->
-        <div class="mui-card">
-            <div class="mui-card-header">商品参数</div>
-            <div class="mui-card-content">
-                <div class="mui-card-content-inner">
-                    <p>商品货号：{{goodsInfo.goods_no}}</p>
-                    <p>库存情况：{{goodsInfo.stock_quantity}}件</p>
-                    <p>上架时间：{{goodsInfo.add_time | dateFormat}}</p>
-                </div>
-            </div>
-            <div class="mui-card-footer">
-                <mt-button type="primary" size="large" plain @click="godesc(id)">图文介绍</mt-button>
-                <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
-
-            </div>
-        </div>
-
+    <!--        商品轮播图区域-->
+    <div class="mui-card">
+      <div class="mui-card-content-inner">
+        <swiper :lunbotuList="imagesList" :isfull="false"></swiper>
+      </div>
     </div>
+
+    <!--        商品购买区域-->
+    <div class="mui-card">
+      <div class="mui-card-header">{{goodsInfo.title}}</div>
+      <div class="mui-card-content">
+        <div class="mui-card-content-inner">
+          <p class="price">
+            市场价：
+            <del>￥{{goodsInfo.market_price}}</del> &nbsp;&nbsp; 销售价 <span
+            class="now_price">￥{{goodsInfo.sell_price}}</span>
+          </p>
+          <p>购买数量：
+            <numbox @getcount="getSelectedCount" :stock_quantity="goodsInfo.stock_quantity"></numbox>
+          </p>
+          <p>
+            <mt-button type="primary" size="small" class="shop-btn">立即购买</mt-button>
+            <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
+          </p>
+
+          <!--                    分析  在加入购物车的时候如何拿到数量-->
+          <!--                    经过分析发现 按钮属于goodsinfo页面 数字属于numberbox 组件
+                                      由于涉及到父子组件的嵌套问题 无法直接 在goiodsinfo 页面中获取到选中商品 的数量值
+                                      怎么解决  涉及到子组件想父组件传值  （事件调用机制）
+                                      事件调用的本质
+                                       父向子传达方法  子调用这个方法  同时吧数据当成参数传递给这个方法
+          -->
+        </div>
+      </div>
+    </div>
+
+    <!--        产品参数区域-->
+    <div class="mui-card">
+      <div class="mui-card-header">商品参数</div>
+      <div class="mui-card-content">
+        <div class="mui-card-content-inner">
+          <p>商品货号：{{goodsInfo.goods_no}}</p>
+          <p>库存情况：{{goodsInfo.stock_quantity}}件</p>
+          <p>上架时间：{{goodsInfo.add_time | dateFormat}}</p>
+        </div>
+      </div>
+      <div class="mui-card-footer">
+        <mt-button type="primary" size="large" plain @click="godesc(id)">图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain @click="goComment(id)">商品评论</mt-button>
+
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <script>
-  import {Toast} from 'mint-ui'
+  import {MessageBox, Toast} from 'mint-ui'
   import swiper from "../subcomponents/swiper.vue";
   import numbox from "../subcomponents/goosinfo_numbox.vue";
+  import common from '@/common'
 
   export default {
     data() {
@@ -98,18 +101,18 @@
       //  获取商品详情参数
       getGoodsInfo() {
         this.axios.get('api/goods/getinfo/' + this.id).then(res => {
-          if (res.data.status === 0){
+          if (res.data.status === 0) {
             this.goodsInfo = res.data.message
           }
         })
       },
       godesc(id) {
-      //  点击使用编程式导航 跳转到图文介绍页面
-        this.$router.push({name: 'goodsdesc', params: { id }})
+        //  点击使用编程式导航 跳转到图文介绍页面
+        this.$router.push({name: 'goodsdesc', params: {id}})
       },
       goComment(id) {
-      //  点击跳转到 商品评论区域
-        this.$router.push({name: 'goodscomment', params: { id }})
+        //  点击跳转到 商品评论区域
+        this.$router.push({name: 'goodscomment', params: {id}})
 
       },
       //加入购物车操作
@@ -117,13 +120,25 @@
         this.ballFlag = !this.ballFlag
         //拼接处一个要保存到 store 中car 数组的购物 商品信息对象
         var goodsinfo = {
-          id: this.id,
+          id: parseInt(this.id),
           count: this.selectedCount,
           price: this.goodsInfo.sell_price,
           selected: true
         }
         //调用 store 中的 mutations  的addToCar
+        // 发送请求 添加商品
         this.$store.commit('addToCar', goodsinfo)
+        if (this.$store.state.isLogin) {
+          this.axios.post('/api/addCar', {
+            g_id: this.id,
+            count: this.selectedCount,
+            price: this.goodsInfo.sell_price
+          }).then(result => {
+            common.updateCarMsg(result, MessageBox, Toast)
+          })
+        }
+
+
       },
       // 动画的钩子函数
       beforeEnter(el) {
@@ -145,9 +160,8 @@
 
         // 徽标是属于app如果使用$ref  这个对象在App组件中 在app中将这个对象传过来 这个方式在这里使用不方便
         const badgePosition = document.getElementById('badge').getBoundingClientRect()
-         var y = badgePosition.top - ballPosition.top
-         var x = badgePosition.left - ballPosition.left
-
+        var y = badgePosition.top - ballPosition.top
+        var x = badgePosition.left - ballPosition.left
 
 
         el.style.transform = `translate(${x}px, ${y}px)`
@@ -172,51 +186,59 @@
   }
 </script>
 
-<style scoped lang="less">
-    .goodsinfo-container {
-        background-color: #eee;
-        overflow: hidden;
-        position: relative;
+<style scoped lang="scss">
+  .goodsinfo-container {
+    background-color: #eee;
+    overflow: hidden;
+    position: relative;
+
+    .shop-btn {
+      margin-right: 10px;
     }
 
+
     .now_price {
-        color: red;
-        font-size: 16px;
-        font-weight: bold;
+      color: red;
+      font-size: 16px;
+      font-weight: bold;
     }
 
     .mui-card-footer {
-        display: block;
+      display: block;
 
-        button {
-            margin: 15px 0;
-        }
+      button {
+        margin: 15px 0;
+      }
     }
+
     .ball {
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        background-color: red;
-        position: absolute;
-        z-index: 99;
-        top: 360px;
-        left: 140px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: red;
+      position: absolute;
+      z-index: 99;
+      top: 360px;
+      left: 140px;
     }
 
-    @media screen and (max-width: 992px) and (min-width: 768px){
-        .ball{
-            top: 605px;
-        }
-    }
-    @media screen and (max-width: 1200px) and (min-width: 992px){
-        .ball{
-            top: 750px;
-        }
-    }
-    @media screen and (min-width: 1200px){
-        .ball{
-            top: 750px;
-        }
+    /*设置小球的位置  最好是通过js精准确定*/
+    @media screen and (max-width: 992px) and (min-width: 768px) {
+      .ball {
+        top: 605px;
+      }
     }
 
+    @media screen and (max-width: 1200px) and (min-width: 992px) {
+      .ball {
+        top: 750px;
+      }
+    }
+
+    @media screen and (min-width: 1200px) {
+      .ball {
+        top: 750px;
+      }
+    }
+  }
 </style>

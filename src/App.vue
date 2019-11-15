@@ -43,8 +43,7 @@
   </div>
 </template>
 <script>
-
-  // 定义过滤器 判断路由的类型 显示头部
+  import common from './common.js'
 
   export default {
     data() {
@@ -56,6 +55,7 @@
     created() {
       // 初始化默认值
       this.isShowBack = this.$route.path === '/home' ? false : true
+      this.getShopCar()
     },
     methods: {
       back() {
@@ -63,7 +63,28 @@
       },
       handleDownload() {
         window.location.href = 'http://gdlinshu.club/download/vue/and.apk'
-      }
+      },
+    //  购物车的数据   如果登录 需要设置
+      //异步方法
+       getShopCar() {
+    this.axios.get('api/getShopCar')
+      .then(result => {
+        //  设置共享数据中 isLogin 是否登录 ，如果没有登录
+        var isLogin = common.isLogin(result.data.status)
+        //  设置car中的值，
+        if(isLogin){
+          this.$store.commit('login')
+          //  登录状态 在app 中 是app 是整个的父组件
+          result.data.message.forEach(item => {
+            item.id = item.g_id
+            item.selected = true
+          })
+          this.$store.commit('initCar', result.data.message)
+        }
+
+      })
+  }
+
     },
     watch: {
       '$route.path': function (newVal) {
@@ -188,6 +209,8 @@
   .v-enter {
     /*这是进入动画之前的的状态*/
     opacity: 0;
+    position: absolute;
+    top: 0;
     transform: translateX(100%);
   }
 
@@ -202,7 +225,7 @@
 
   .v-enter-active,
   .v-leave-active {
-    transition: all .5s ease-out;
+    transition: all .5s ease;
   }
 
   .mint-header.is-fixed {

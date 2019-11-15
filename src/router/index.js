@@ -116,6 +116,7 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes,
   linkActiveClass: 'mui-active'
 })

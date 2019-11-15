@@ -68,6 +68,7 @@
         //  发送请求 退出登录
         this.axios.post('api/vue/logout').then(result => {
           if (result.data.status === 0) {
+            this.$store.commit('logout')
             MessageBox({
               title: '您以成功退出登录',
               message: '是否前往登录?',
