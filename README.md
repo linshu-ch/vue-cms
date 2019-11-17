@@ -282,3 +282,5 @@ axios.defaults.baseURL = 'http://192.168.1.107/'
 ![5](./vueImg/5.png)
 ![6](./vueImg/6.png)
 ![7](./vueImg/7.png)
+![8](./vueImg/8.png)
+![9](./vueImg/9.png)
