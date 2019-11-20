@@ -36,7 +36,6 @@
           uname, password: upwd, car:this.$store.state.car
         })
           .then(result => {
-          Toast(result.data.message)
           if (result.data.status === 0) {
             //  登录成功 回跳或返回主页操作
             // 设置状态

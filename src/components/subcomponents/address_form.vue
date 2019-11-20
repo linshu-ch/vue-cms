@@ -22,7 +22,7 @@
 <script>
   import vDistpicker from 'v-distpicker'
   import {Toast, MessageBox} from 'mint-ui'
-
+import common from '@/common.js'
   export default {
     name: "user-form",
     data() {
@@ -49,33 +49,19 @@
             }
           })
             .then(result => {
-              if (result.data.status === -1) {
-                //  请登录
-                MessageBox({
-                  title: '您尚未登录',
-                  message: '是否前往登录?',
-                  showCancelButton: true,
-                  cancelButtonText: '返回上一页'
-                })
-                  .then(active => {
-                    if (active === 'cancel') {
-                      this.$router.go(-1)
-                    } else {
-                      this.$router.push('/user/login')
-                    }
-                  })
-                return
-              }
+              common.noLogin(result.data.status,MessageBox,this)
               if(result.data.status === -2) {
                 return Toast(result.data.message)
               }
-              var data = result.data.message[0]
-              this.user = data.a_name
-              this.tel = data.a_tel
-              this.info = data.info
-              this.sheng = data.sheng
-              this.city = data.city
-              this.qu = data.qu
+              if(result.data.status ===0){
+                var data = result.data.message[0]
+                this.user = data.a_name
+                this.tel = data.a_tel
+                this.info = data.info
+                this.sheng = data.sheng
+                this.city = data.city
+                this.qu = data.qu
+              }
             })
         }
       },

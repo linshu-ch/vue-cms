@@ -12,7 +12,10 @@
     </mt-header>
     <!--        路由router-view区域-->
     <div class="main">
-      <transition>
+      <transition
+        name="custom-classes-transition"
+        enter-active-class="animated fadeInRight"
+        leave-active-class="animated fadeOutLeft p-absolute">
         <router-view></router-view>
       </transition>
     </div>
@@ -100,7 +103,8 @@
       formatRoute(route) {
         //  获取当前的 路由
         var title = ''
-        switch (route) {
+        var lowerRoute = route.toLowerCase()
+        switch (lowerRoute) {
           case '/':
             title = 'vue项目-首页';
             break;
@@ -116,10 +120,10 @@
           case '/search':
             title = 'vue项目-搜索商品';
             break;
-          case '/home/newList':
+          case '/home/newlist':
             title = 'vue项目-新闻列表';
             break;
-          case '/home/photoList':
+          case '/home/photolist':
             title = 'vue项目-图片列表';
             break;
           case '/home/goodslist':
@@ -134,30 +138,33 @@
           case '/user/address':
             title = 'vue项目-我的收货地址';
             break;
-            case '/user/AddAddress':
+            case '/user/addaddress':
             title = 'vue项目-我的收货地址';
+            break;
+          case '/user/userinfo':
+            title = 'vue项目-我的个人信息';
             break;
         }
 
-        if (route.indexOf('/home/newsinfo/') === 0) {
+        if (lowerRoute.indexOf('/home/newsinfo/') === 0) {
           title = 'vue项目-新闻详情'
         }
-        if (route.indexOf('/home/photoInfo/') === 0) {
+        if (lowerRoute.indexOf('/home/photoinfo/') === 0) {
           title = 'vue项目-图片详情'
         }
-        if (route.indexOf('/home/goodsinfo') === 0) {
+        if (lowerRoute.indexOf('/home/goodsinfo') === 0) {
           title = 'vue项目-商品详情'
         }
-        if (route.indexOf('/home/goodsdesc/') === 0) {
+        if (lowerRoute.indexOf('/home/goodsdesc/') === 0) {
           title = 'vue项目-商品图文'
         }
-        if (route.indexOf('/home/goodscomment/') === 0) {
+        if (lowerRoute.indexOf('/home/goodscomment/') === 0) {
           title = 'vue项目-商品评论'
         }
-        if (route.indexOf('/home/videoInfo/') === 0) {
+        if (lowerRoute.indexOf('/home/videoinfo/') === 0) {
           title = 'vue项目-视频详情'
         }
-        if (route.indexOf('/user/updateAddress/') === 0) {
+        if (lowerRoute.indexOf('/user/updateaddress/') === 0) {
           title = 'vue项目-我的收货地址'
         }
 
@@ -200,33 +207,33 @@
 
   }
 
-  /*.mint-header {*/
-  /*  width: 100%;*/
-  /*  position: absolute;*/
-  /*  top: 0;*/
-  /*  left: 0;*/
+
+  /*.v-enter {*/
+  /*  !*这是进入动画之前的的状态*!*/
+  /*  opacity: 0;*/
+  /*  transform: translateY(100%);*/
   /*}*/
-  .v-enter {
-    /*这是进入动画之前的的状态*/
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    transform: translateX(100%);
-  }
 
-  .v-leave-to {
-    opacity: 0;
-    position: absolute;
-    height: 0;
-    transform: translateX(-100%);
-    //设置离开的时候不占位
-    /*    这个设置的是离开动画的位置  离开的位置在左边 所有需要 设置为 -100%*/
-  }
+  /*.v-leave-to {*/
+  /*  opacity: 0;*/
 
-  .v-enter-active,
-  .v-leave-active {
-    transition: all .5s ease;
-  }
+  /*  !*transform: translateY(-100%);*!*/
+  /*  //设置离开的时候不占位*/
+  /*  !*    这个设置的是离开动画的位置  离开的位置在左边 所有需要 设置为 -100%*!*/
+  /*}*/
+
+  /*.v-enter-active,*/
+  /*.v-leave-active {*/
+  /*  opacity: 1;*/
+  /*  transition: all .5s ease;*/
+  /*}*/
+  /*.v-leave-active {*/
+
+  /*}*/
+
+.p-absolute{
+  position: absolute;
+}
 
   .mint-header.is-fixed {
     z-index: 9;
@@ -234,9 +241,11 @@
 
   .main {
     min-height: 100%;
+    &>div{
+      width: 100%;
+    }
   }
 
-  /*使用固定定位在ios 中不友好 最好是使用 上下固定 使用是 滚动的*/
   .mui-bar {
     position: fixed;
     bottom: 0;

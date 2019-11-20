@@ -26,7 +26,7 @@
   // 引用 mui
   import mui from '@/assets/js/mui.min.js'
   import {Toast,MessageBox} from 'mint-ui'
-
+  import common from '@/common'
   export default {
     name: "Address",
     data() {
@@ -39,31 +39,15 @@
       getAddress() {
         this.axios.get('api/getAddress').then(result => {
           // 如果没有登录 跳转到登录页
-          if (result.data.status === -1) {
-            //  请登录
-            MessageBox({
-              title: '您尚未登录',
-              message: '是否前往登录?',
-              showCancelButton: true,
-              cancelButtonText: '返回上一页'
-            })
-              .then(active => {
-                if (active === 'cancel') {
-                  this.$router.go(-1)
-                } else {
-                  this.$router.push('/user/login')
-                }
-              })
-            return false
-          }
-          this.data = result.data.message
+          common.noLogin(result.data.status,MessageBox,this)
+          if(result.data.status === 0 )this.data = result.data.message
         })
       },
       del(e,id,i){
       //  弹出提示框
         MessageBox({
           title: '',
-          message: '请确认是否删除收货?',
+          message: '请确认是否删除收货地址?',
           showCancelButton: true,
           cancelButtonText: '取消',
           confirmButtonText: '删除',
@@ -74,22 +58,10 @@
               this.axios.post('/api/delAddress',{
                 id
               }).then(result=> {
-                if(result.data.status === -1){
-                  MessageBox({
-                    title: '',
-                    message: '您尚未登录，是否前往登录?',
-                    showCancelButton: true,
-                    cancelButtonText: '取消',
-                    confirmButtonText: '确认',
-                  })
-                    .then(active=> {
-                      if(active === 'confirm'){
-                        this.$router.push('/user/login')
-                      }
-                    })
-                  return
-                }
-                Toast(result.data.message)
+                common.noLogin(result.data.status,MessageBox,this)
+               if(result.data.status !==-1) {
+                 Toast(result.data.message)
+               }
                 if(result.data.status === 0) {
                 //  删除数据
                   this.data.splice(i,1)

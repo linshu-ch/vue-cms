@@ -22,6 +22,7 @@ const Login = ()=> import('@/components/user/login.vue')
 const Address = ()=> import('@/components/user/address.vue')
 const AddAddress = ()=> import('@/components/user/addAddress.vue')
 const UpdateAddress = ()=> import('@/components/user/updateAddress.vue')
+const UserInfo = ()=> import('@/components/user/userInfo.vue')
 
 
 Vue.use(VueRouter)
@@ -113,6 +114,12 @@ const routes = [{
     name: 'updateAddress',
     props: true
   },
+  {
+    path: '/user/userInfo',
+    component: UserInfo,
+    name: 'userInfo',
+    props: true
+  }
 ]
 
 const router = new VueRouter({

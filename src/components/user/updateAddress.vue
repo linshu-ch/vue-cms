@@ -7,6 +7,7 @@
 <script>
   import addressForm from "../subcomponents/address_form";
   import {Toast,MessageBox} from  'mint-ui'
+  import common from "@/common";
   export default {
     name: "updateAddress",
     components: {
@@ -14,29 +15,14 @@
     },
     methods: {
       post(body) {
-
           this.axios.post('api/updateAddress', {
             id: this.id,
            ...body
           }).then(result => {
-            if (result.data.status === -1) {
-              //  请登录
-              MessageBox({
-                title: '您尚未登录',
-                message: '是否前往登录?',
-                showCancelButton: true,
-                cancelButtonText: '返回上一页'
-              })
-                .then(active => {
-                  if (active === 'cancel') {
-                    this.$router.go(-1)
-                  } else {
-                    this.$router.push('/user/login')
-                  }
-                })
-            } else if (result.data.status === 1 || result.data.status === 2) {
+            common.noLogin(result.data.status,MessageBox,this)
+           if (result.data.status === 1 || result.data.status === 2) {
               Toast(result.data.message)
-            } else {
+            } else if(result.data.status === 0){
               //   添加成功
               MessageBox({
                 title: result.data.message,

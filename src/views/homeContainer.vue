@@ -1,7 +1,7 @@
 <template>
   <div>
-    <vue-element-loading :active="isActive" :is-full-screen="true" spinner="spinner" color="#FF6700"
-                         background-color="rgba(255,255,255,0)"/>
+<!--    <vue-element-loading :active="isActive" :is-full-screen="true" spinner="spinner" color="#FF6700"-->
+<!--                         background-color="rgba(255,255,255,0)"/>-->
     <!--        轮播图区域-->
     <swiper :lunbotuList="lunbotuList" :isfull="true"></swiper>
     <!--        九宫格到 六宫格的改造 6宫格-->

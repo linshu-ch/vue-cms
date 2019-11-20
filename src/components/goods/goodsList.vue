@@ -34,9 +34,6 @@
             </div>
         </div>
     </div>
-    <div v-if="isActive" class="velmld-parent">
-        <vue-element-loading :active="true" :is-full-screen="pageIndex === 1 ? true: false" spinner="spinner" color="#FF6700" background-color="rgba(255,255,255,0)" />
-    </div>
     <!--    加载跟多-->
     <mt-button v-if="isShowBtn" type="danger" size="large" @click="loadMore" :disabled="flag">加载更多</mt-button>
 </div>
@@ -49,7 +46,6 @@
           goodsList: [],
           pageIndex: 1,
           flag: false,
-            isActive: false,
             isShowBtn: false
         }
       },
@@ -59,9 +55,8 @@
       methods: {
         getGoodsList () {
           // 发起ajax 请求 goodsList 获取列表
-            this.isActive = true
+
           this.axios.get('api/getgoods?pageindex=' + this.pageIndex).then(res => {
-              this.isActive = false
               this.isShowBtn = true
             if (res.data.status === 0){
               this.goodsList = this.goodsList.concat(res.data.message)
