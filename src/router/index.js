@@ -23,6 +23,7 @@ const Address = ()=> import('@/components/user/address.vue')
 const AddAddress = ()=> import('@/components/user/addAddress.vue')
 const UpdateAddress = ()=> import('@/components/user/updateAddress.vue')
 const UserInfo = ()=> import('@/components/user/userInfo.vue')
+const UserRegister = ()=> import('@/components/user/register.vue')
 
 
 Vue.use(VueRouter)
@@ -97,6 +98,11 @@ const routes = [{
     path: '/user/login',
     component: Login,
     name: 'login'
+  },
+  {
+    path: '/user/register',
+    component: UserRegister,
+    name: 'register'
   },
   {
     path: '/user/address',

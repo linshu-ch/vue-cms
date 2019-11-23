@@ -144,6 +144,9 @@
           case '/user/userinfo':
             title = 'vue项目-我的个人信息';
             break;
+          case '/user/register':
+            title = 'vue项目-注册账号';
+            break;
         }
 
         if (lowerRoute.indexOf('/home/newsinfo/') === 0) {
