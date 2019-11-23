@@ -19,9 +19,6 @@
             </div>
           </div>
         </div>
-        <div id="demo1" v-if="isLoading" class="mui-progressbar mui-progressbar-infinite">
-          <span></span>
-        </div>
         <mt-button type="danger" :disabled="allLoaded" size="large" plain @click="!allLoaded && getMore()">加载更多</mt-button>
       </mt-loadmore>
     </div>
@@ -37,7 +34,6 @@
         pageIndex: 1,//默认显示第一
         msg: '',
         allLoaded: false,
-        isLoading: false
       }
     },
     created() {
@@ -46,16 +42,14 @@
     props: ['artid'],
     methods: {
       getComments() {//获取评论
-          this.isLoading = true
         this.axios.get('api/getcomments/' + this.artid + '?pageindex=' + this.pageIndex).then(data => {
-            this.isLoading = false
+          this.$refs.loadmore.onBottomLoaded();
             if (data.data.status === 0) {
             //  使用数组凭借的方法
             this.commentList = this.commentList.concat(data.data.message)
           } else if (data.data.status === 2) {
-            Toast('没有更多数据')
+            Toast('没有更多评论')
             this.allLoaded = true
-            Toast('没有更多数据')
           } else {
             Toast('读取信息失败')
           }
@@ -93,9 +87,7 @@
         this.getComments()
       },
       loadBottom() {
-
         this.getMore()
-        this.$refs.loadmore.onBottomLoaded();
       }
     }
   }
@@ -105,7 +97,6 @@
         margin: 4px 0;
     }
   .cmt-container {
-    /*overflow: scroll;*/
     display: flex;
     flex-direction: column;
 

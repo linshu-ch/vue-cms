@@ -80,16 +80,8 @@ axios.defaults.baseURL = 'http://192.168.1.107/'
 
 1. 使用mint-ui 的lead-more 组件
 2. 在使用mint-ui注意点  
-3. 一定要为组件的父元素加上一个高度，能有效的避免，上拉未到底触发上拉事件，
-    1. 在这采用在Vue实例生命周期函数 mounted (页面加载完成之后) 获取这个父容器的高度
-    2. 获取这个高度公式: 页面视口高度 - 页面滚动到最低部视口顶部到父容器顶部的距离 - 底部的高度
-    ` this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top-50;`
-    3. 通过style 属性绑定的方式 设置样式
-4. 父容器需要设置样式溢出滚动 `overflow: scroll`
-5. `bottom-method` 属性 是用于绑定上拉加载事件
-6. 在配置这个组件的对象中，需要配置auto-fill 属性为false   避免自动加载评论，填充容器
-7. 在这个组件中，需要配置api `bottom-all-loaded` 这个api 是用来控制上拉事件是非启动，如果为`true` 是不会监听 上拉刷新事件，通过属性绑定，在Vue实例对象中绑定数据  根据服务端返回的数据来判断是否监听上拉刷新事件
-8. 在上拉事件方法中 一定需要调用  `this.$refs.loadmore.onBottomLoaded();` 方法这是因为在加载数据后需要对组件进行一些重新定位的操作 列表底部的上拉刷新与之类似，
+3. 在这个组件中，需要配置api `bottom-all-loaded` 这个api 是用来控制上拉事件是非启动，如果为`true` 是不会监听 上拉刷新事件，通过属性绑定，在Vue实例对象中绑定数据  根据服务端返回的数据来判断是否监听上拉刷新事件
+4. 在上拉事件方法中 加载完成后一定需要调用  `this.$refs.loadmore.onBottomLoaded();` 方法这是因为在加载数据后需要对组件进行一些重新定位的操作 列表底部的上拉刷新与之类似，
 
 ## 发表评论
 
