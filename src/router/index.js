@@ -124,8 +124,7 @@ const routes = [{
     path: '/user/userInfo',
     component: UserInfo,
     name: 'userInfo',
-    props: true
-  }
+  },
 ]
 
 const router = new VueRouter({

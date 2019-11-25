@@ -170,6 +170,10 @@
         if (lowerRoute.indexOf('/user/updateaddress/') === 0) {
           title = 'vue项目-我的收货地址'
         }
+        if (lowerRoute.indexOf('/user/userinfoupdateinput/') === 0) {
+          title = 'vue项目-修改我的个人信息'
+        }
+
 
         return title
       }

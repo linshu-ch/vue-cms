@@ -19,7 +19,8 @@
             </div>
           </div>
         </div>
-        <mt-button type="danger" :disabled="allLoaded" size="large" plain @click="!allLoaded && getMore()">加载更多</mt-button>
+        <mt-button type="danger" :disabled="allLoaded" size="large" plain @click="!allLoaded && getMore()">加载更多
+        </mt-button>
       </mt-loadmore>
     </div>
   </div>
@@ -44,7 +45,7 @@
       getComments() {//获取评论
         this.axios.get('api/getcomments/' + this.artid + '?pageindex=' + this.pageIndex).then(data => {
           this.$refs.loadmore.onBottomLoaded();
-            if (data.data.status === 0) {
+          if (data.data.status === 0) {
             //  使用数组凭借的方法
             this.commentList = this.commentList.concat(data.data.message)
           } else if (data.data.status === 2) {
@@ -93,9 +94,10 @@
   }
 </script>
 <style lang="less">
-    .mui-progressbar {
-        margin: 4px 0;
-    }
+  .mui-progressbar {
+    margin: 4px 0;
+  }
+
   .cmt-container {
     display: flex;
     flex-direction: column;
@@ -125,6 +127,7 @@
             background-color: #ccc;
 
           }
+
           .cmt-body {
             line-height: 35px;
             text-indent: 2em;

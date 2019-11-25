@@ -4,11 +4,14 @@
     <input type="text" v-model="tel" placeholder="手机号码">
     <input type="text" placeholder="所在地区" readonly @click="isShowDistpicker = true" :value="sheng+city+qu">
     <!--    选择框-->
-    <div class="address-selector" :class="isShowDistpicker?'show': 'hide'" @click="close">
-      <span class="mui-icon mui-icon-closeempty close-address-selector" @click="isShowDistpicker=false"></span>
-      <v-distpicker type="mobile" :province="sheng" :city="city" :area="qu" @selected="onSelected">
-      </v-distpicker>
-    </div>
+      <user-address-selector
+        @selected="onSelected"
+        v-bind:city1="city"
+        v-bind:sheng1="sheng"
+        v-bind:qu1="qu"
+        v-bind:isShowDistpicker="isShowDistpicker"
+        @update="updateisShowDistpicker"
+      ></user-address-selector>
 
     <!--   详细信息-->
     <textarea name="" rows="5" placeholder="详细地址：如街道，门牌号、小区、楼层、单元等" v-model="info"></textarea>
@@ -20,7 +23,8 @@
 </template>
 
 <script>
-  import vDistpicker from 'v-distpicker'
+  import userAddressSelector from '@/components/subcomponents/user-address-selector.vue'
+  // import vDistpicker from 'v-distpicker'
   import {Toast, MessageBox} from 'mint-ui'
 import common from '@/common.js'
   export default {
@@ -37,7 +41,7 @@ import common from '@/common.js'
       }
     },
     components: {
-      'v-distpicker': vDistpicker
+      'userAddressSelector': userAddressSelector
     },
     methods: {
       getAddress() {
@@ -64,13 +68,6 @@ import common from '@/common.js'
               }
             })
         }
-      },
-      close(e) {
-        // 判断tagName  如果是UL LI  之间返回
-        if (e.target.tagName === 'UL' || e.target.tagName === 'LI') return false
-        e.stopPropagation()
-
-        this.isShowDistpicker = false
       },
       onSelected(e) {
         this.sheng = e.province.value
@@ -119,7 +116,10 @@ import common from '@/common.js'
           this.city = ''
           this.qu = ''
         }.bind(this))
-      }
+      },
+      updateisShowDistpicker(now) {
+        this.isShowDistpicker = now
+      },
     },
     props: ['id'],
     created() {
@@ -135,48 +135,45 @@ import common from '@/common.js'
     width: 100%;
     height: 100%;
 
-    .address-selector {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, .3);
-      transition: all .5s ease;
-      z-index: 11;
-    }
+  /*  .address-selector {*/
+  /*    position: fixed;*/
+  /*    top: 0;*/
+  /*    bottom: 50px;*/
+  /*    left: 0;*/
+  /*    right: 0;*/
+  /*    background-color: rgba(0, 0, 0, .3);*/
+  /*    transition: all .5s ease;*/
+  /*    z-index: 11;*/
+  /*  }*/
+  /*  .show {*/
+  /*    display: block;*/
+  /*      opacity: 1;*/
+  /*}*/
+  /*.hide {*/
+  /*  display: none;*/
+  /*  height: 0;*/
+  /*  opacity: 0;*/
+  /*}*/
 
-    .show {
-      display: block;
-      height: 100%;
-      opacity: 1;
-    }
+    /*.close-address-selector {*/
+    /*  position: absolute;*/
+    /*  bottom: 40vh;*/
+    /*  line-height: 40px;*/
+    /*  right: 10px;*/
+    /*  color: #6d6d72;*/
+    /*  z-index: 9999999;*/
+    /*}*/
 
-    .hide {
-      display: none;
-      height: 0;
-      opacity: 0;
-    }
+    /*.distpicker-address-wrapper {*/
+    /*  position: absolute;*/
+    /*  bottom: 0;*/
+    /*  width: 100%;*/
+    /*}*/
 
-    .close-address-selector {
-      position: absolute;
-      bottom: 40vh;
-      line-height: 40px;
-      right: 10px;
-      color: #6d6d72;
-      z-index: 9999999;
-    }
-
-    .distpicker-address-wrapper {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-    }
-
-    .address-container {
-      width: 100%;
-      height: 40vh;
-    }
+    /*.address-container {*/
+    /*  width: 100%;*/
+    /*  height: 40vh;*/
+    /*}*/
 
     .btn {
       display: flex;

@@ -3,18 +3,16 @@
     <input class="uname" type="text" name="uname" v-model="uname" placeholder="请填入3~8位的用户名英文或数字的用户名"/>
     <input class="nicheng" type="text" name="nicheng" v-model="nicheng" placeholder="请输入您的昵称"/>
 
-    <div class="password">
-      <input :type="isShowPwd? 'text': 'password'" name="upwd" v-model="upwd" placeholder="请输入密码"/>
-      <a class="is-show-pwd" :class="isShowPwd?'active': ''" href="javascript:void(0);" @click="isShowPwd = !isShowPwd"><span
-        class="mui-icon mui-icon-eye"></span></a>
-    </div>
-
-    <div class="password">
-      <input :type="isShowRePwd? 'text': 'password'" name="reupwd" v-model="reupwd" placeholder="请再次输入密码"
-             :class="{'border-danger': isDengyu}"/>
-      <a :class="[{'is-show-pwd': true},{'active': isShowRePwd}]" href="javascript:void(0);"
-         @click="isShowRePwd = !isShowRePwd"><span class="mui-icon mui-icon-eye"></span></a>
-    </div>
+    <user-password-input
+      v-on:handleChange="handleChangePwd"
+      v-bind:placeholder="'请输入密码'"
+      v-bind:isDangerBorder="false"
+    ></user-password-input>
+    <user-password-input
+      v-on:handleChange="handleChangeRePwd"
+      v-bind:placeholder="'请再次输入密码'"
+      v-bind:isDangerBorder="isDengyu"
+    ></user-password-input>
 
 
     <div class="tel-box">
@@ -34,6 +32,7 @@
 <script>
   import {Toast, MessageBox} from 'mint-ui'
   import fun from '@/common'
+  import userPasswordInput from '@/components/subcomponents/user-passwordInput.vue'
 
   export default {
     data() {
@@ -45,8 +44,6 @@
         reupwd: '',
         isDengyu: false,
         captchaData: '',
-        isShowPwd: false,
-        isShowRePwd: false,
         captchaVal: '',
         text: '获取验证码',
         timeId: null,
@@ -57,7 +54,12 @@
     },
     methods: {
       // 获取验证码操作
-
+      handleChangePwd(now){
+        this.upwd = now
+      },
+      handleChangeRePwd(now){
+        this.reupwd = now
+      },
       handleGetTelCode() {
         if (!/^[0-9]{11}$/.test(this.tel)) {
           return Toast('请输入真确的手机号码')
@@ -159,6 +161,9 @@
           this.isDengyu = false
         }
       }
+    },
+    components: {
+      'userPasswordInput': userPasswordInput
     }
   }
 </script>
@@ -168,29 +173,24 @@
     .uname {
       margin-top: 20px;
     }
-
-    .border-danger {
-      border-color: #ef4f4f;
-    }
-
     .margin-b-15 {
       margin-bottom: 15px;
     }
 
-    .password {
-      position: relative;
+    /*.password-show {*/
+    /*  position: relative;*/
 
-      .is-show-pwd {
-        color: #8F8F94;
-        position: absolute;
-        right: 15px;
-        top: 8px;
+    /*  .is-show-pwd {*/
+    /*    color: #8F8F94;*/
+    /*    position: absolute;*/
+    /*    right: 15px;*/
+    /*    top: 8px;*/
 
-        &.active {
-          color: #007aff;
-        }
-      }
-    }
+    /*    &.active {*/
+    /*      color: #007aff;*/
+    /*    }*/
+    /*  }*/
+    /*}*/
 
     .tel-box,
     .captcha {
