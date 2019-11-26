@@ -5,7 +5,7 @@
         <label for="pic">
           <span class="mui-navigate-right">
           头像
-          <span><img :src="newPic? newPic: URL + data.pic" alt=""></span>
+          <span><img :src="URL +$store.state.uidPic" alt=""></span>
         </span>
         </label>
         <input type="file" name="pic" id="pic" accept="image/*" @change="handlePicChange">
@@ -52,6 +52,7 @@
       @update="updateisShowDistpicker"
     ></user-address-selector>
 
+<!--    修改密码框-->
     <div v-if="isShowUpdatePwd" class="updatePassword-box">
 
       <div class="mint-msgbox-wrapper" style="position: absolute; z-index: 2003;">
@@ -167,6 +168,8 @@
             common.noLogin(result.data.status, MessageBox, this)
             if (result.data.status === 0) {
               this.newPic = window.URL.createObjectURL(picFiles)
+              // 公用的图片
+              this.$store.commit('setUserPic', result.data.pic)
             } else if (result.data.status !== -1) {
               Toast(result.data.message)
             }
@@ -346,7 +349,6 @@
       //  隐藏
       closeUpdatePassword() {
         this.startClass = true
-
         var timeId = window.setTimeout(() => {
           this.isShowUpdatePwd = false
           window.clearTimeout(timeId)
@@ -355,20 +357,20 @@
 
       //  提交修改密码
       handleUpdatePwd() {
-        if(!this.reupwd || !this.upwd || !this.oldpwd)return Toast('请完整提交表单')
+        if (!this.reupwd || !this.upwd || !this.oldpwd) return Toast('请完整提交表单')
         if (this.upwd !== this.reupwd) return Toast('两次密码不一致')
         if (!/^[a-zA-Z0-9./,;'\\]{3,18}$/.test(this.upwd) || !/^[a-zA-Z0-9./,;'\\]{3,18}$/.test(this.oldpwd)) return Toast('密码格式不正确')
-      //
+        //
         this.axios.post('api/updatePassword', {
           oldPassword: this.oldpwd,
           password: this.upwd,
         })
-          .then(result=> {
+          .then(result => {
             Toast({
               message: result.data.message,
             })
-            if(result.data.status ===0 ){
-               this.closeUpdatePassword()
+            if (result.data.status === 0) {
+              this.closeUpdatePassword()
 
             }
           })
@@ -442,9 +444,11 @@
     }
 
   }
+
   .text-align-left {
     text-align: left;
   }
+
   .mint-toast {
     z-index: 9999999;
   }

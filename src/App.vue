@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!--        header -->
-    <mt-header fixed :title="$route.path|formatRoute">
+    <mt-header fixed :title="setTitle">
       <!--            返回-->
       <span v-show="isShowBack" slot="left" @click="back">
           <mt-button icon="back">返回</mt-button>
@@ -14,8 +14,8 @@
     <div class="main">
       <transition
         name="custom-classes-transition"
-        enter-active-class="animated fadeInRight"
-        leave-active-class="animated fadeOutLeft p-absolute">
+        enter-active-class="animated fadeInRight time"
+        leave-active-class="animated fadeOutLeft p-absolute time">
         <router-view></router-view>
       </transition>
     </div>
@@ -38,9 +38,9 @@
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id="badge">{{$store.getters.getAllCount}}</span></span>
         <span class="mui-tab-label">购物车</span>
       </router-link>
-      <router-link class="mui-tab-itemBug" to="/search">
-        <span class="mui-icon mui-icon-search"></span>
-        <span class="mui-tab-label">搜索</span>
+      <router-link class="mui-tab-itemBug" to="/friends">
+        <span class="mui-icon mui-icon-person-filled"></span>
+        <span class="mui-tab-label">好友</span>
       </router-link>
     </nav>
   </div>
@@ -99,9 +99,9 @@
 
       }
     },
-    filters: {
-      formatRoute(route) {
-        //  获取当前的 路由
+    computed: {
+      setTitle(){
+        var route = this.$route.path
         var title = ''
         var lowerRoute = route.toLowerCase()
         switch (lowerRoute) {
@@ -117,8 +117,8 @@
           case '/shopcar':
             title = 'vue项目-购物车';
             break;
-          case '/search':
-            title = 'vue项目-搜索商品';
+          case '/friends':
+            title = 'vue项目-我的好友';
             break;
           case '/home/newlist':
             title = 'vue项目-新闻列表';
@@ -138,7 +138,7 @@
           case '/user/address':
             title = 'vue项目-我的收货地址';
             break;
-            case '/user/addaddress':
+          case '/user/addaddress':
             title = 'vue项目-我的收货地址';
             break;
           case '/user/userinfo':
@@ -148,7 +148,6 @@
             title = 'vue项目-注册账号';
             break;
         }
-
         if (lowerRoute.indexOf('/home/newsinfo/') === 0) {
           title = 'vue项目-新闻详情'
         }
@@ -173,10 +172,93 @@
         if (lowerRoute.indexOf('/user/userinfoupdateinput/') === 0) {
           title = 'vue项目-修改我的个人信息'
         }
-
-
+        if (lowerRoute.indexOf('/friends/friendschat/') === 0) {
+          // console.log(this)
+          title = this.$store.state.unicheng2
+        }
         return title
       }
+    },
+    filters: {
+      // formatRoute:(route)=> {
+      //   //  获取当前的 路由
+      //   var title = ''
+      //   var lowerRoute = route.toLowerCase()
+      //   switch (lowerRoute) {
+      //     case '/':
+      //       title = 'vue项目-首页';
+      //       break;
+      //     case '/home':
+      //       title = 'vue项目-首页';
+      //       break;
+      //     case '/user':
+      //       title = 'vue项目-用户中心';
+      //       break;
+      //     case '/shopcar':
+      //       title = 'vue项目-购物车';
+      //       break;
+      //     case '/friends':
+      //       title = 'vue项目-我的好友';
+      //       break;
+      //     case '/home/newlist':
+      //       title = 'vue项目-新闻列表';
+      //       break;
+      //     case '/home/photolist':
+      //       title = 'vue项目-图片列表';
+      //       break;
+      //     case '/home/goodslist':
+      //       title = 'vue项目-商品列表';
+      //       break;
+      //     case '/user/login':
+      //       title = 'vue项目-登陆';
+      //       break;
+      //     case '/home/videolist':
+      //       title = 'vue项目-视频列表';
+      //       break;
+      //     case '/user/address':
+      //       title = 'vue项目-我的收货地址';
+      //       break;
+      //       case '/user/addaddress':
+      //       title = 'vue项目-我的收货地址';
+      //       break;
+      //     case '/user/userinfo':
+      //       title = 'vue项目-我的个人信息';
+      //       break;
+      //     case '/user/register':
+      //       title = 'vue项目-注册账号';
+      //       break;
+      //   }
+      //   if (lowerRoute.indexOf('/home/newsinfo/') === 0) {
+      //     title = 'vue项目-新闻详情'
+      //   }
+      //   if (lowerRoute.indexOf('/home/photoinfo/') === 0) {
+      //     title = 'vue项目-图片详情'
+      //   }
+      //   if (lowerRoute.indexOf('/home/goodsinfo') === 0) {
+      //     title = 'vue项目-商品详情'
+      //   }
+      //   if (lowerRoute.indexOf('/home/goodsdesc/') === 0) {
+      //     title = 'vue项目-商品图文'
+      //   }
+      //   if (lowerRoute.indexOf('/home/goodscomment/') === 0) {
+      //     title = 'vue项目-商品评论'
+      //   }
+      //   if (lowerRoute.indexOf('/home/videoinfo/') === 0) {
+      //     title = 'vue项目-视频详情'
+      //   }
+      //   if (lowerRoute.indexOf('/user/updateaddress/') === 0) {
+      //     title = 'vue项目-我的收货地址'
+      //   }
+      //   if (lowerRoute.indexOf('/user/userinfoupdateinput/') === 0) {
+      //     title = 'vue项目-修改我的个人信息'
+      //   }
+      //   if (lowerRoute.indexOf('/friends/friendschat/') === 0) {
+      //     // console.log(this)
+      //     title = this.$store.state.unicheng2
+      //   }
+      //
+      //   return title
+      // }
     }
   }
 </script>
@@ -211,10 +293,12 @@
     padding-top: 40px;
     padding-bottom: 50px;
     overflow-x: hidden;
-
   }
 
-
+.time {
+/*  设置动画时间*/
+  animation-duration: .3s;
+}
   /*.v-enter {*/
   /*  !*这是进入动画之前的的状态*!*/
   /*  opacity: 0;*/

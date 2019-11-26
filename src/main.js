@@ -15,6 +15,8 @@ Vue.prototype.axios = axios
 
 // 配置请求服务端的默认地址
 Vue.prototype.URL = 'http://192.168.1.107'
+// 配置请求服务器的ws 默认地址
+Vue.prototype.WSURL = 'ws://192.168.1.107:80'
 
 
 // 全局是使用mint-ui 因为在使用懒加载 组件是  没有样式 需要 全局使用
@@ -44,9 +46,13 @@ Vue.component('VueElementLoading', VueElementLoading)
 //定义全局的过滤器
 Vue.filter('dateFormat', function (dateStr, pattern = "YYYY-MM-DD HH:mm:ss") {
   // dataStr
-  return monent(dateStr).format(pattern)
+  return monent(parseInt(dateStr)).format(pattern)
 })
 
+
+// 使用 v-console 调试错误
+// import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
+// let vConsole = new VConsole()
 
 new Vue({
   router,

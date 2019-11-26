@@ -13,7 +13,9 @@ car.forEach(item => { //做数据上的处理
 export default new Vuex.Store({
   state: {//用于存放数据 this.$store.state.***
     car,
-    isLogin: false
+    isLogin: false,
+    uidPic: localStorage.getItem('uidPic') || '',
+    unicheng2: ''
     //件购物车中商品的数据用一个数组存储起来 在car数组中存放商品的对象 {id : 商品的id, count: 要购买的数量,price: 商品的单价, selected: 是否打开开关 布尔值}
   },
   mutations: {//用于挂载处理数据的方法  this.$store.commit('方法名称', 按需传入唯一的参数)
@@ -82,6 +84,16 @@ export default new Vuex.Store({
     //  退出操作
     logout(state) {
       state.isLogin = false
+    },
+
+  //  userPic 设置
+    setUserPic (state,pic) {
+      state.uidPic = pic
+    //   将路径保存在本地
+      localStorage.setItem('uidPic',state.uidPic)
+    },
+    setUnicheng2(state,nicheng){
+      state.unicheng2 = nicheng
     }
   },
   getters: { // 用于挂载输出包装后的数据的方法  过滤器 或计算属性 this.$store.getters.***

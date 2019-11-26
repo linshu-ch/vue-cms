@@ -12,6 +12,7 @@
     "mint-ui": "^2.2.13",
     "moment": "^2.24.0",
     "v-distpicker": "^1.2.2",
+    "vconsole": "^3.3.4",
     "vue": "^2.6.10",
     "vue-element-loading": "^1.1.5",
     "vue-preview": "^1.1.3",

@@ -4,7 +4,7 @@
       <li class="mui-table-view-cell">
         <router-link class="mui-navigate-right user-info" to="/user/userInfo">
           <div class="user-pic-box">
-            <img :src="data.pic?URL +data.pic: URL + '/images/user/defaultpic.jfif'" alt="">
+            <img :src="$store.state.uidPic?URL +$store.state.uidPic: URL + '/images/user/defaultpic.jfif'" alt="">
           </div>
           <div class="user-msg">
             <p class="mui-ellipsis">用户名：{{data.uname}}</p>
@@ -87,7 +87,8 @@
 </template>
 <script>
   import {MessageBox} from 'mint-ui'
-import common from '@/common'
+  import common from '@/common'
+
   export default {
     data() {
       return {
@@ -97,9 +98,10 @@ import common from '@/common'
     methods: {
       getUserInfo() {
         this.axios.get('api/userInfo').then(result => {
-          common.noLogin(result.data.status,MessageBox,this)
-         if(result.data.status === 0) {
+          common.noLogin(result.data.status, MessageBox, this)
+          if (result.data.status === 0) {
             this.data = result.data.message
+            this.$store.commit('setUserPic', this.data.pic)
           }
         })
       },
@@ -108,6 +110,7 @@ import common from '@/common'
         this.axios.post('api/vue/logout').then(result => {
           if (result.data.status === 0) {
             this.$store.commit('logout')
+            this.$store.commit('setUserPic','')
             MessageBox({
               title: '您以成功退出登录',
               message: '是否前往登录?',
@@ -167,6 +170,7 @@ import common from '@/common'
           display: flex;
           justify-content: space-between;
           color: #000;
+
           .order-link-right {
             color: #6d6d72;
             font-size: 12px;
@@ -176,7 +180,8 @@ import common from '@/common'
 
         .mui-card-content-inner {
           padding: 0;
-          .user-order-nav{
+
+          .user-order-nav {
             display: flex;
             flex-direction: row;
             list-style: none;
@@ -184,20 +189,24 @@ import common from '@/common'
             font-size: 12px;
 
             padding: 0;
-            li{
+
+            li {
               flex: 1;
               padding-top: 5px;
-              .order-nav-link{
+
+              .order-nav-link {
                 height: 50px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 text-align: center;
-                .iconfont{
+
+                .iconfont {
                   font-size: 24px;
                   position: relative;
-                  .badge{
+
+                  .badge {
                     padding: 2px;
                     position: absolute;
                     background-color: #007aff;

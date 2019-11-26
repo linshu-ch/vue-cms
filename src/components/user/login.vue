@@ -63,11 +63,9 @@
                     this.$router.push('/user')
                   }
                 })
+              //  在登录的时候获取购物车数据
+              return this.axios.get('api/getShopCar')
 
-              // 重新更新数据
-              if (result.data.code === 1) {
-                return this.axios.get('api/getShopCar')
-              }
             }
           })
           // 重新获取数据

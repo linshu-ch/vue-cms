@@ -65,6 +65,7 @@
         })
         // 如果idArr 是一个空的数组 则没有必要请求拿到数据   直接 跳出函数
         if (idArr.length <= 0) return
+        console.log(1)
         this.axios.get('api/goods/getshopcarlist/' + idArr.join(',')).then(res => {
 
           if (res.data.status === 0) {

@@ -3,8 +3,9 @@ import VueRouter from 'vue-router'
 
 //实现路由懒加载
 import homeContainer from '@/views/homeContainer.vue'
+
 const userContainer = () => import('@/views/userContainer.vue')
-const searchContainer = () => import('@/views/searchContainer.vue')
+const friendsContainer = () => import('@/views/friendsContainer.vue')
 const shopcarContainer = () => import('@/views/shopcarContainer.vue')
 const newListContainer = () => import('@/components/new/newList.vue')
 const newsInfo = () => import('@/components/new/newsInfo.vue')
@@ -18,20 +19,23 @@ const videoList = () => import('@/components/video/videoList.vue')
 const videoInfo = () => import('@/components/video/videoInfo.vue')
 
 // 用户登录相关组件
-const Login = ()=> import('@/components/user/login.vue')
-const Address = ()=> import('@/components/user/address.vue')
-const AddAddress = ()=> import('@/components/user/addAddress.vue')
-const UpdateAddress = ()=> import('@/components/user/updateAddress.vue')
-const UserInfo = ()=> import('@/components/user/userInfo.vue')
-const UserRegister = ()=> import('@/components/user/register.vue')
+const Login = () => import('@/components/user/login.vue')
+const Address = () => import('@/components/user/address.vue')
+const AddAddress = () => import('@/components/user/addAddress.vue')
+const UpdateAddress = () => import('@/components/user/updateAddress.vue')
+const UserInfo = () => import('@/components/user/userInfo.vue')
+const UserRegister = () => import('@/components/user/register.vue')
 
+
+// 聊天功能
+const FriendsChat = () => import('@/components/chat/chat.vue')
 
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
-    redirect: '/home'
-  },
+  path: '/',
+  redirect: '/home'
+},
   {
     path: '/home',
     component: homeContainer
@@ -41,8 +45,8 @@ const routes = [{
     component: userContainer
   },
   {
-    path: '/search',
-    component: searchContainer
+    path: '/friends',
+    component: friendsContainer
   },
   {
     path: '/shopcar',
@@ -125,6 +129,14 @@ const routes = [{
     component: UserInfo,
     name: 'userInfo',
   },
+
+//  friends组件相关
+  {
+    path: '/friends/friendsChat/:uid/:nicheng',
+    component: FriendsChat,
+    name: 'friendsChat',
+    props: true
+  }
 ]
 
 const router = new VueRouter({
