@@ -294,18 +294,18 @@ axios.defaults.baseURL = 'http://192.168.1.107/'
 
 ## 添加定位功能（待完成）
 
-## 添加聊天功能（待完成）
 
 ## 支付功能（做不到）
 
 ## 效果呈现
 
-![1](./vueImg/1.png)
-![2](./vueImg/2.png)
-![3](./vueImg/3.png)
-![4](./vueImg/4.png)
-![5](./vueImg/5.png)
-![6](./vueImg/6.png)
-![7](./vueImg/7.png)
-![8](./vueImg/8.png)
-![9](./vueImg/9.png)
+![1](./vueimg/1.png)
+![2](./vueimg/2.png)
+![3](./vueimg/3.png)
+![4](./vueimg/4.png)
+![5](./vueimg/5.png)
+![6](./vueimg/6.png)
+![7](./vueimg/7.png)
+![8](./vueimg/8.png)
+![9](./vueimg/9.png)
+![10](./vueimg/10.png)
