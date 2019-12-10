@@ -11,7 +11,22 @@ import axios from 'axios'
 
 axios.defaults.withCredentials = true // 配置 axios 发起 异步的 ajax 请求 可以携带cookie
 axios.defaults.baseURL = 'http://192.168.1.107/' // 配置发起 ajax 的跟 域名 ip
+
+// 设置发送请求loading
+axios.interceptors.request.use(function(config){
+  MintUi.Indicator.open({
+    spinnerType: 'fading-circle'
+  })
+  return config
+})
+
+axios.interceptors.response.use(function(config){
+  MintUi.Indicator.close()
+  return config
+})
+
 Vue.prototype.axios = axios
+
 
 // 配置请求服务端的默认地址
 Vue.prototype.URL = 'http://192.168.1.107'
