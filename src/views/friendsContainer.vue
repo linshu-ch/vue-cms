@@ -42,7 +42,6 @@
             common.noLogin(result.data.status, MessageBox, this)
             if (result.data.status === 0) {
               this.friendsList = result.data.message
-              console.log( this.friendsList)
               this.message = '占时没有好友,赶快去添加吧'
             }
           })

@@ -24,7 +24,6 @@
     },
     methods: {
       postcount() {
-        // console.log(this.$refs.count.value);
         //每当文本框发发生改变时 给这个父组件 传值
         this.$emit('getcount', parseInt(this.$refs.count.value))
       }

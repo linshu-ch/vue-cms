@@ -173,7 +173,6 @@
           title = 'vue项目-修改我的个人信息'
         }
         if (lowerRoute.indexOf('/friends/friendschat/') === 0) {
-          // console.log(this)
           title = this.$store.state.unicheng2
         }
         return title
@@ -253,7 +252,6 @@
       //     title = 'vue项目-修改我的个人信息'
       //   }
       //   if (lowerRoute.indexOf('/friends/friendschat/') === 0) {
-      //     // console.log(this)
       //     title = this.$store.state.unicheng2
       //   }
       //

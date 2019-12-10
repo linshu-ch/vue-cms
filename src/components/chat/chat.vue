@@ -58,21 +58,21 @@
       // 上拉加载更多数据
       loadTop() {
         //   上拉加载跟多
-        if(this.allLoaded) return
+        if (this.allLoaded) return this.$refs.loadmore.onTopLoaded();
         this.page++
         this.getChatMessage()
       },
 
       //设置自动回到底部
       setScrollTop() {
-        var timeId = setTimeout(()=>{
+        var timeId = setTimeout(() => {
           // 这里使用定时器的原因是 因为手机代码执行的快，但是上面的渲染操作并没有完成 可能会有失效的情况
           var container = document.querySelector('.app-container')
           var scroll = container.scrollHeight - container.clientHeight
 
           container.scrollTop = scroll + 200
           clearTimeout(timeId)
-        },10)
+        }, 10)
       },
 
       //   获取聊天记录操作 获取之前的
@@ -124,7 +124,7 @@
               uid1: this.uid1,
               uid2: this.uid2,
               message: this.val,
-              ctime:  data.ctime
+              ctime: data.ctime
             }
             this.chatList.unshift(obj)
             this.val = ''
@@ -134,14 +134,14 @@
             this.chatList.unshift(...data.message.data)
           }
           //   将页面滚动到最底端 滚动元素是app-con
-        this.setScrollTop()
+          this.setScrollTop()
 
         }
       },
       // 发送数据
       handleWsSend() {
 
-        if(this.val.trim() === '') return Toast('请输入内容')
+        if (this.val.trim() === '') return Toast('请输入内容')
         if (this.ws) {
           this.ws.send(this.val)
         } else {
@@ -249,6 +249,7 @@
       bottom: 50px;
       display: flex;
       z-index: 10000;
+
       input {
         width: auto;
         flex: 1;
