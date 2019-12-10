@@ -14,8 +14,8 @@
     <div class="main">
       <transition
         name="custom-classes-transition"
-        enter-active-class="animated fadeInRight time"
-        leave-active-class="animated fadeOutLeft p-absolute time">
+        enter-active-class="animated fadeInRight time in"
+        leave-active-class="animated fadeOutLeft p-absolute time out">
         <router-view></router-view>
       </transition>
     </div>
@@ -263,20 +263,6 @@
   }
 </script>
 <style lang="scss">
-  /*网页版才需要的*/
-  /*  .download {*/
-  /*    width: 100%;*/
-  /*    position: fixed;*/
-  /*    background-color: #fafafa;*/
-  /*    bottom: 40px;*/
-  /*    display: flex;*/
-  /*    justify-content: flex-end;*/
-  /*    padding: 10px;*/
-  /*    .mui-icon {*/
-  /*      padding: 0;*/
-  /*      border: none;*/
-  /*    }*/
-  /*  }*/
   * {
     box-sizing: border-box;
     touch-action: pan-y;
@@ -298,6 +284,11 @@
 .time {
 /*  设置动画时间*/
   animation-duration: .3s;
+}
+.in {
+  .input-box {
+    bottom: 0!important;
+  }
 }
   /*.v-enter {*/
   /*  !*这是进入动画之前的的状态*!*/

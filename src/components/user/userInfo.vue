@@ -132,6 +132,7 @@
       getUserInfo() {
         this.axios.get('api/getUserInfo')
           .then(result => {
+            console.log(result)
             common.noLogin(result.data.status, MessageBox, this)
             if (result.data.status === 0) {
               result.data.message.pic = result.data.message.pic ? result.data.message.pic : '/images/user/defaultpic.jfif'

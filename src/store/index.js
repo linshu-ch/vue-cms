@@ -73,7 +73,10 @@ export default new Vuex.Store({
       })
       localStorage.setItem('car', JSON.stringify(car))
     },
-    initCar(state,car){
+    initCar(state, car) {
+      car.forEach(item => {
+        item.selected = true
+      })
       state.car = car
       localStorage.setItem('car', JSON.stringify(car))
     },
@@ -86,13 +89,13 @@ export default new Vuex.Store({
       state.isLogin = false
     },
 
-  //  userPic 设置
-    setUserPic (state,pic) {
+    //  userPic 设置
+    setUserPic(state, pic) {
       state.uidPic = pic
-    //   将路径保存在本地
-      localStorage.setItem('uidPic',state.uidPic)
+      //   将路径保存在本地
+      localStorage.setItem('uidPic', state.uidPic)
     },
-    setUnicheng2(state,nicheng){
+    setUnicheng2(state, nicheng) {
       state.unicheng2 = nicheng
     }
   },

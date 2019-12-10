@@ -248,7 +248,7 @@
       right: 0;
       bottom: 50px;
       display: flex;
-      z-index: 100000000;
+      z-index: 10000;
       input {
         width: auto;
         flex: 1;

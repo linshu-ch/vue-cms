@@ -10,11 +10,11 @@
     <ul class="mui-table-view friends-list">
       <li v-for="(item, i) of friendsList" :key="i" class="mui-table-view-cell mui-media">
         <router-link :to="'/friends/friendsChat/'+item.id +'/' +item.nicheng" class="">
-          <span class="mui-badge mui-badge-danger">15</span>
+          <span v-if="item.count" class="mui-badge mui-badge-danger">{{item.count}}</span>
           <img class="mui-media-object mui-pull-left" :src="URL + item.pic">
           <div class="mui-media-body">
             {{item.nicheng}}
-            <p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+            <p class="mui-ellipsis">{{item.message || ''}}</p>
           </div>
         </router-link>
       </li>
@@ -42,6 +42,7 @@
             common.noLogin(result.data.status, MessageBox, this)
             if (result.data.status === 0) {
               this.friendsList = result.data.message
+              console.log( this.friendsList)
               this.message = '占时没有好友,赶快去添加吧'
             }
           })
